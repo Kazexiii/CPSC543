@@ -1,14 +1,10 @@
+long timenow;
+
+int ONnOFF=0;
+
 int volt1=0;
 int volt2=0;
 int volti=0;
-
-long timenow;
-String  inString = ""; 
-char inChar;
-int first=1;
-char fchar;
-int val;
-int ONnOFF=0;
 
 long delayer1=1500;
 long dura1=100;
@@ -32,6 +28,7 @@ void setup() {
 void loop() {
   timenow=millis();
   
+  
   while (Serial.available() > 0) 
     {    
       int onoff = Serial.parseInt(); 
@@ -43,7 +40,6 @@ void loop() {
       int delayy = Serial.parseInt(); 
      
       if (Serial.read() == '\n') {
-           Serial.print("Test");
             volt1=inten1;
             volt2=inten2;
             volti=inten1;
@@ -65,7 +61,7 @@ void loop() {
             Serial.print(" ");
             Serial.print(pulsee);
             Serial.print(" ");
-            Serial.print(delayer1);
+            Serial.println(delayer1);
         }
         else{ }
       }
