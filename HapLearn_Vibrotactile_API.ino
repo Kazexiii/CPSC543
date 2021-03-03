@@ -88,9 +88,14 @@ else
        else if (volt1<volt2)
         volt1=volt1+1;
        else {
+        Serial.println(repeaterF);
         repeaterF= repeaterF - 1;
          if (repeaterF>0) {
           volt1=volti;
+          Serial.println("123");
+         } else 
+         {
+          repeaterF= 0;
          }
        }
       }
