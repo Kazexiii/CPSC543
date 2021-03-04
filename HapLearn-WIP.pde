@@ -6,7 +6,6 @@ import org.gicentre.utils.stat.*;
 private PVector dataPoint;
 private int barIndex;
 private float yValue;
-private int draw_reset = 1;
 
 private float barHeight;
 private float[] barValues = {0.76, 0.4, 0.76, 0.5, 0.3}; // barchart values
@@ -69,59 +68,46 @@ void draw()
     //println(barHeight); 
     if ( yValue > barValues[barIndex])
     {
-      if (draw_reset==1)
-        {
-          println("Pointer outside bars");
-          onoff = 0;    // Keep vibrator OFF (0) or ON (1)
-          inten1 = 0;   //0 - 255
-          inten2 = 0;   //0 - 255
-          sweeptime_ms = 0;   //in ms
-          repeatsweep = 0;    // no of times you want to repeat sweep within one cycle
-          pulse_time_ms = 0;  // The actuating time in a cycle. This period includes any sweeps or multiple sweeps or just flat vibrations
-          rest_ms = 0;     // The No actuating time or resting in ms before starting next cycle
-          vib_cmd = onoff+","+inten1+","+inten2+","+sweeptime_ms+","+repeatsweep+","+pulse_time_ms+","+rest_ms+"\n";
-          port.write(vib_cmd); 
-          barHeight=-1;
-          draw_reset=0;
-        }
-      }
+      println("Pointer outside bars");
+      onoff = 0;    // Keep vibrator OFF (0) or ON (1)
+      inten1 = 0;   //0 - 255
+      inten2 = 0;   //0 - 255
+      sweeptime_ms = 2;   //in ms
+      repeatsweep = barIndex+1;    // no of times you want to repeat sweep within one cycle
+      pulse_time_ms = 6000;  // The actuating time in a cycle. This period includes any sweeps or multiple sweeps or just flat vibrations
+      rest_ms = 2000;     // The No actuating time or resting in ms before starting next cycle
+      vib_cmd = onoff+","+inten1+","+inten2+","+sweeptime_ms+","+repeatsweep+","+pulse_time_ms+","+rest_ms+"\n";
+      port.write(vib_cmd); 
+      //barHeight=-1;
+    }
     else if (barValues[barIndex] != barHeight)
     {   
       println(barIndex);
       println(barHeight = barValues[barIndex]);
-      println(barH = barHeight*10);
+      println(barH = barHeight*355);
       onoff = 1;    // Keep vibrator OFF (0) or ON (1)
-      inten1 = 255;   //0 - 255
+      inten1 = (int)barH;   //0 - 255
       inten2 = 0;   //0 - 255
       sweeptime_ms = 2;   //in ms
-      repeatsweep = (int)barH;    // no of times you want to repeat sweep within one cycle
+      repeatsweep = 3;    // no of times you want to repeat sweep within one cycle
       pulse_time_ms = 6000;  // The actuating time in a cycle. This period includes any sweeps or multiple sweeps or just flat vibrations
-      rest_ms = 3000;     // The No actuating time or resting in ms before starting next cycle
-      delay(1000);
+      rest_ms = 2000;     // The No actuating time or resting in ms before starting next cycle
       vib_cmd = onoff+","+inten1+","+inten2+","+sweeptime_ms+","+repeatsweep+","+pulse_time_ms+","+rest_ms+"\n";
-      print("Checkpoint 0: ");
-      println(vib_cmd);
       port.write(vib_cmd); 
-      delay(2000);
-      port.write(vib_cmd); 
+      delay(100);
       println("Checkpoint");
-      draw_reset=1;
     }  
   }
   else {
-       if (draw_reset==1)
-       {
-          println(" OFF ");
-          onoff = 0;    // Keep vibrator OFF (0) or ON (1)
-          inten1 = (int)barH;   //0 - 255
-          inten2 = 0;   //0 - 255
-          sweeptime_ms = 2;   //in ms
-          repeatsweep = barIndex+1;    // no of times you want to repeat sweep within one cycle
-          pulse_time_ms = 6000;  // The actuating time in a cycle. This period includes any sweeps or multiple sweeps or just flat vibrations
-          rest_ms = 2000;     // The No actuating time or resting in ms before starting next cycle
-          vib_cmd = onoff+","+inten1+","+inten2+","+sweeptime_ms+","+repeatsweep+","+pulse_time_ms+","+rest_ms+"\n";
-          port.write(vib_cmd); 
-          draw_reset=0;
-       }
+      println(" OFF ");
+      onoff = 0;    // Keep vibrator OFF (0) or ON (1)
+      inten1 = (int)barH;   //0 - 255
+      inten2 = 0;   //0 - 255
+      sweeptime_ms = 2;   //in ms
+      repeatsweep = barIndex+1;    // no of times you want to repeat sweep within one cycle
+      pulse_time_ms = 6000;  // The actuating time in a cycle. This period includes any sweeps or multiple sweeps or just flat vibrations
+      rest_ms = 2000;     // The No actuating time or resting in ms before starting next cycle
+      vib_cmd = onoff+","+inten1+","+inten2+","+sweeptime_ms+","+repeatsweep+","+pulse_time_ms+","+rest_ms+"\n";
+      port.write(vib_cmd); 
     }   
 }
