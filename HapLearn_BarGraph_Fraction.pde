@@ -89,14 +89,14 @@ void draw()
     {   
       println(barIndex);
       println(barHeight = barValues[barIndex]);
-      println(barH = barHeight*355);
+      println(barH = barHeight*10);
       onoff = 1;    // Keep vibrator OFF (0) or ON (1)
-      inten1 = (int)barH;   //0 - 255
+      inten1 = 255;   //0 - 255
       inten2 = 0;   //0 - 255
       sweeptime_ms = 2;   //in ms
-      repeatsweep = 3;    // no of times you want to repeat sweep within one cycle
+      repeatsweep = (int)barH;    // no of times you want to repeat sweep within one cycle
       pulse_time_ms = 6000;  // The actuating time in a cycle. This period includes any sweeps or multiple sweeps or just flat vibrations
-      rest_ms = 2000;     // The No actuating time or resting in ms before starting next cycle
+      rest_ms = 3000;     // The No actuating time or resting in ms before starting next cycle
       delay(1000);
       vib_cmd = onoff+","+inten1+","+inten2+","+sweeptime_ms+","+repeatsweep+","+pulse_time_ms+","+rest_ms+"\n";
       print("Checkpoint 0: ");
